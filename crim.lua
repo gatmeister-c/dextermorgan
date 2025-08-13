@@ -251,8 +251,8 @@ task.spawn(function() -- Allowance Timer Counter
         if timer == 0 then
             allowanceReady = true
 
-        elseif timer <= 15
-            humanoid.Health == 0
+        elseif timer <= 15 then
+            humanoid.Health = 0
             task.wait(timer)
 
         else
@@ -391,5 +391,6 @@ local function main()
         end
     end
 end
+
 
 main()
