@@ -392,6 +392,8 @@ local function main()
     end
 end
 
+setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
