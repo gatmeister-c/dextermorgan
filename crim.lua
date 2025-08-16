@@ -392,5 +392,6 @@ local function main()
     end
 end
 
-
+RunService:Set3dRenderingEnabled(false)
 main()
+
