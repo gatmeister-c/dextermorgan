@@ -282,7 +282,7 @@ local function postStats()
             bank = bankUI.Text,
             level = levelUI.Text,
             xp = xpUI.Text,
-            status = "farmin",
+            status = "online",
             lastClaimed = os.time()
         }
     }
@@ -317,7 +317,7 @@ Players.PlayerRemoving:Connect(function(leavingPlayer)
                 bank = bankUI.Text,
                 level = levelUI.Text,
                 xp = xpUI.Text,
-                status = "offline"
+                status = "online"
             }
         }
 
@@ -395,6 +395,7 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
