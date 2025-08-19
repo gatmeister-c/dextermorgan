@@ -236,13 +236,15 @@ player.CharacterAdded:Connect(function(character)
     hrp = char:WaitForChild("HumanoidRootPart")
 end)
 
-task.spawn(function() -- Rejoin Main Menu every 2 hours (8 atm claims) to reset RAM usage
+-- CHECKING IF EXECUTING SCRIPTS CAUSES THE CRASHES
+--[[ task.spawn(function() -- Rejoin Main Menu every 2 hours (8 atm claims) to reset RAM usage
     while task.wait(30) do
         if claimedAllowancesCount >= 8 then
             TeleportService:Teleport(4588604953, player)
         end
     end
 end)
+--]]
 
 task.spawn(function() -- Allowance Timer Counter
     while task.wait(1) do
@@ -395,6 +397,7 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
