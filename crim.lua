@@ -1,7 +1,7 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("v.1.0.4")
+print("v.1.0.5")
 
 local running = false
 
@@ -397,6 +397,7 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
