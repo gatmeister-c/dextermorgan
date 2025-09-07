@@ -30,7 +30,7 @@ task.spawn(function()
             end
         end
 
-        if tostring(game.PlaceId) == "15169316384" then
+        if tostring(game.PlaceId) == "8343259840" then
             menuLoaded = false
             task.wait(10)
             local button = Players.LocalPlayer:
@@ -397,6 +397,7 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
