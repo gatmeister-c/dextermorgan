@@ -24,7 +24,7 @@ task.spawn(function()
             if not menuLoaded then
                 menuLoaded = true
                 menuFunc = game:GetService("RunService").Heartbeat:Connect(function()
-                    ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "M-Casual", nil, 1) 
+                    ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "Casual", nil, 1) 
                     print("Looping")
                 end) 
             end
