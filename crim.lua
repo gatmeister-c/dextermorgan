@@ -1,7 +1,14 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("v.1.0.4 Mobile")
+print("v.1.0.5 Mobile")
+
+UserInputService.TouchEnabled = true
+UserInputService.KeyboardEnabled = false
+UserInputService.MouseEnabled = false
+hookfunction(UserInputService.GetPlatform, function()
+    return Enum.Platform.IOS
+end)
 
 local running = false
 
@@ -397,3 +404,4 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
+
