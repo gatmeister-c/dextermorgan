@@ -1,7 +1,7 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("v.1.0.5")
+print("v.1.0.4 Mobile")
 
 local running = false
 
@@ -24,13 +24,13 @@ task.spawn(function()
             if not menuLoaded then
                 menuLoaded = true
                 menuFunc = game:GetService("RunService").Heartbeat:Connect(function()
-                    ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "Casual", nil, 1) 
+                    ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "M-Casual", nil, 1) 
                     print("Looping")
                 end) 
             end
         end
 
-        if tostring(game.PlaceId) == "8343259840" then
+        if tostring(game.PlaceId) == "15169316384" then
             menuLoaded = false
             task.wait(10)
             local button = Players.LocalPlayer:
@@ -397,11 +397,3 @@ end
 setfpscap(2)
 RunService:Set3dRenderingEnabled(false)
 main()
-
-
-
-
-
-
-
-
