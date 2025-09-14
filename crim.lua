@@ -86,24 +86,6 @@ local levelUI = levelFrame:WaitForChild("LevelBox"):WaitForChild("LevelNumber")
 
 local fpscap = 5
 
-local currentAnimTrack = nil
-local function playAnim(animId)
-    if currentAnimTrack then
-        currentAnimTrack:Stop()
-        currentAnimTrack:Destroy()
-        currentAnimTrack = nil
-    end
-
-    if animId then
-        animation.AnimationId = animId
-        local animator = humanoid:FindFirstChildOfClass("Animator")
-        if animator then
-            currentAnimTrack = animator:LoadAnimation(animation)
-            currentAnimTrack:Play()
-        end
-    end
-end
-
 -- ATMS --
 local atms = {}
 local atmsFolder = workspace:WaitForChild("Map"):WaitForChild("ATMz")
@@ -355,3 +337,4 @@ end
 
 RunService:Set3dRenderingEnabled(false)
 main()
+
