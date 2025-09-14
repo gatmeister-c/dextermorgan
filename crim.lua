@@ -1,7 +1,7 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("v.1.0.5 PC")
+print("v.1.0.6 PC (Wave)")
 
 local running = false
 
@@ -361,6 +361,7 @@ end
 setfpscap(5)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
