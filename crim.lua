@@ -122,15 +122,6 @@ local function getNearestAtm()
     return nearestAtm
 end
 
-local function buyersProtection(bool)
-    local args = {
-        bool,
-        "ATM",
-        workspace:WaitForChild("Map"):WaitForChild("ATMz"):WaitForChild("ATM"):WaitForChild("MainPart")
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BYZERSPROTEC"):FireServer(unpack(args))
-end
-
 local allowanceButton = playerGui:
                         WaitForChild("CoreGUI"):
                         WaitForChild("ATMFrame"):
@@ -175,14 +166,6 @@ local function interactWithATM()
     end
 
     hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
-end
-
-local function noclip()
-    for _, v in atmsFolder:GetDescendants() do
-        if v:IsA("BasePart") then
-            v.CanCollide = false
-        end
-    end
 end
 
 -- RESPAWN --
