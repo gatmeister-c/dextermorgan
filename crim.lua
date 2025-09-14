@@ -291,13 +291,12 @@ local function postStats()
 
     local headers = {
         ["Content-Type"] = "application/json",
-        ["x-http-method-override"] = "PATCH"
     }
 
     local success, result = pcall(function()
-        return HttpService:RequestAsync({
+        return request({
             Url = "https://dash.crimillion.com/api/accounts",
-            Method = "POST", -- Simulating PATCH
+            Method = "PATCH",
             Headers = headers,
             Body = HttpService:JSONEncode(updates)
         })
@@ -309,41 +308,6 @@ local function postStats()
         warn("Patch failed:", result and result.Body or "Unknown error")
     end
 end
-
-Players.PlayerRemoving:Connect(function(leavingPlayer)
-    if leavingPlayer == player then
-        local updates = {
-            {
-                name = player.Name,
-                cash = cashUI.Text,
-                bank = bankUI.Text,
-                level = levelUI.Text,
-                xp = xpUI.Text,
-                status = "online"
-            }
-        }
-
-        local headers = {
-            ["Content-Type"] = "application/json",
-            ["x-http-method-override"] = "PATCH"
-        }
-
-        local success, result = pcall(function()
-            return HttpService:RequestAsync({
-                Url = "https://dash.crimillion.com/api/accounts",
-                Method = "POST", -- Simulating PATCH
-                Headers = headers,
-                Body = HttpService:JSONEncode(updates)
-            })
-        end)
-
-        if success and result.Success then
-            print("Set offline success for " .. player.Name)
-        else
-            warn("Failed to set offline for " .. player.Name .. ":", result and result.Body or "Unknown error")
-        end
-    end
-end)
 
 -- MAIN --
 local function main()
@@ -397,6 +361,7 @@ end
 setfpscap(5)
 RunService:Set3dRenderingEnabled(false)
 main()
+
 
 
 
