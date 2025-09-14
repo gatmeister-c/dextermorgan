@@ -84,20 +84,7 @@ local levelFrame = playerGui:
 local xpUI = levelFrame:WaitForChild("Bar"):WaitForChild("Stat")
 local levelUI = levelFrame:WaitForChild("LevelBox"):WaitForChild("LevelNumber")
 
-local animation = Instance.new("Animation")
-local ANIM_IDS = {
-    -- Criminality Animations --
-    Run = "rbxassetid://14694480293",
-    Jump = "rbxassetid://14694480236",
-    Fall = "rbxassetid://14694480047",
-    Climb = "rbxassetid://180436334",
-    Flinch1 = "rbxassetid://14694481529",
-    Flinch2 = "rbxassetid://14694481578",
-    Idle = "rbxassetid://180435571",
-
-    -- Other --
-    Carpet = "rbxassetid://282574440",
-}
+local fpscap = 5
 
 local currentAnimTrack = nil
 local function playAnim(animId)
@@ -275,6 +262,12 @@ task.spawn(function() -- Because for some reason the loopCount >= 40 check doesn
     end
 end)
 
+task.spawn(function()
+	while task.wait(1) do
+        setfpscap(fpscap)
+    end
+end)
+
 -- HTTP Requests
 local function postStats()
     local updates = {
@@ -321,6 +314,7 @@ local function main()
     
     while task.wait(1) do
         if allowanceReady and not looping then
+            fpscap = 60
             local newAtm = nil
             looping = true
 
@@ -353,16 +347,11 @@ local function main()
                 end
 
                 postStats()
+                fpscap = 5
             end
         end
     end
 end
 
-setfpscap(5)
 RunService:Set3dRenderingEnabled(false)
 main()
-
-
-
-
-
