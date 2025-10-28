@@ -1,7 +1,3 @@
---[[
-batus made this i just forked
-]]
-
 repeat wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
 
 if getgenv().AntiAfkExecuted and thisoneissocoldww then 
@@ -147,8 +143,6 @@ uselesslabelfour.Text = "Anti-Afk Auto Enabled"
 uselesslabelfour.TextColor3 = Color3.fromRGB(255, 255, 255)
 uselesslabelfour.TextSize = 14.000
 
-
-
 local Drag = game.CoreGui.thisoneissocoldww.madebybloodofbatus
 gsCoreGui = game:GetService("CoreGui")
 gsTween = game:GetService("TweenService")
@@ -188,17 +182,12 @@ UserInputService.InputChanged:Connect(function(input)
 	end
 end)
 
-
-
 local bbbatusxxxddddd = game:service'VirtualUser'
 
 game:service'Players'.LocalPlayer.Idled:connect(function()
 	bbbatusxxxddddd:CaptureController()
 	bbbatusxxxddddd:ClickButton2(Vector2.new())
 end)
-
-
-
 
 local FPSsLabel = fpslabel
 local RunService = game:GetService("RunService")
@@ -217,12 +206,8 @@ local function fre()
 	fpslabel.Text = fps
 end
 
-
 sec = tick()
 RenderStepped:Connect(fre)
-
-
-
 
 spawn(function()
 	repeat
@@ -230,44 +215,29 @@ spawn(function()
 		local ping = tonumber(game:GetService("Stats"):FindFirstChild("PerformanceStats").Ping:GetValue())
 		ping = math.floor(ping)
 		pinglabel.Text = ping
-
-
-
 	until pinglabel == nil
 end)
 
 local saniye = 0
-
-
-
 local dakika = 0
-
-
-
 local saat = 0
-
-
-
 
 getgenv().zamanbaslaticisi = true
 
 while true do
-
-
-		if getgenv().zamanbaslaticisi then
-			saniye = saniye + 1
-			wait(1)
-		end --if zaman baslaticisi end
-
-		if saniye >= 60 then
-			saniye = 0
-			dakika = dakika + 1
-		end --if saniye 60 end
-
-		if dakika >= 60 then
-			dakika = 0
-			saat = saat + 1
-		end --if dakika 60 end
-
-		timerlabel.Text = saat..":"..dakika..":"..saniye
+	if getgenv().zamanbaslaticisi then
+		saniye = saniye + 1
+		wait(1)
 	end
+
+	if saniye >= 60 then
+		saniye = 0
+		dakika = dakika + 1
+	end
+
+	if dakika >= 60 then
+		dakika = 0
+		saat = saat + 1
+	end
+	timerlabel.Text = saat..":"..dakika..":"..saniye
+end
