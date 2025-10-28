@@ -88,6 +88,18 @@ local levelFrame = playerGui:
 local xpUI = levelFrame:WaitForChild("Bar"):WaitForChild("Stat")
 local levelUI = levelFrame:WaitForChild("LevelBox"):WaitForChild("LevelNumber")
 
+local success, response = pcall(function()
+    local dailyRewardsClaim = playerGui:
+                            FindFirstChild("DailyLoginGUI"):
+                            FindFirstChild("MainFrame"):
+                            FindFirstChild("TextButton")
+    if dailyRewardsClaim then
+        for i, connection in getconnections(dailyRewardsClaim.MouseButton1Click) do
+            connection:Fire()
+        end
+    end
+end)
+
 local fpscap = 5
 
 -- ATMS --
@@ -327,7 +339,5 @@ local function main()
 end
 
 RunService:Set3dRenderingEnabled(false)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
-main()
-
-
+task.spawn(main)
+task.spawn(loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))())
