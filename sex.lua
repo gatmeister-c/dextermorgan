@@ -1,7 +1,7 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("v.1.1 PC")
+print("v.1.1.1 PC")
 
 local pedos = {64489098,295331237,244844600,418086275,3294804378,142989311,281593651,3717066084,455275714,46567801,25689921,1229486091,54087314,63238912,446849296,141193516,81275825,96783330,67180844,412741116,193945439,93676120,140837601,63315426,142821118,175931803,194512073,87189764,93281166,208929505,418199326,957835150,47352513,632886139,1517131734,1810535041,195538733,156152502,122209625,102045519,111250044,29706395,730176906,1424338327,9212846,48058122,955294,5046659439,5046661126,5046662686,959606619,366613818,1024216621,278097946,50801509,40397833,241063740,646366887,1434829778,25048901,155413858,151691292,10497435,513615792,55893752,55476024,136584758,16983447,3111449,271400893,94693025,5005262660,141211828,114332275,42066711,69262878,92504899,50585425,31365111,49405424,166406495,2457253857,29761878,513242595,335465171}
 -- Testers and above in CRIMCORP
@@ -27,10 +27,9 @@ task.spawn(function()
             running = false
             if not menuLoaded then
                 menuLoaded = true
-                menuFunc = game:GetService("RunService").Heartbeat:Connect(function()
+                while task.wait(5) do
                     ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "Casual", nil, 1) 
-                    print("Looping")
-                end) 
+                end
             end
         end
 
@@ -49,10 +48,6 @@ task.spawn(function()
                 connection:Fire()
             end
             print("Clicked Play")
-
-            if menuFunc then
-                menuFunc:Disconnect()
-            end
             task.wait(5)
         end
     end
@@ -105,18 +100,6 @@ local fpscap = 5
 -- ATMS --
 local atms = {}
 local atmsFolder = workspace:WaitForChild("Map"):WaitForChild("ATMz")
-for i, v in atmsFolder:GetChildren() do
-    table.insert(atms, v)
-    for _, child in v:GetChildren() do
-        if child.Name == "MainPart" then
-            local part = Instance.new("Part")
-            part.Size = Vector3.new(20, 1, 20)
-            part.Parent = workspace
-            part.Anchored = true
-            part.Position = child.Position + Vector3.new(0, -14, 0)
-        end
-    end
-end
 
 local function getNearestAtm()
     local nearestAtm = nil
@@ -204,9 +187,9 @@ player.CharacterAdded:Connect(function(character)
     hrp = char:WaitForChild("HumanoidRootPart")
 end)
 
-task.spawn(function() -- Rejoin Main Menu every 2 hours (8 atm claims) to reset RAM usage
+task.spawn(function() -- Rejoin Main Menu every 1 hours (4 atm claims) to reset RAM usage
     while task.wait(30) do
-        if claimedAllowancesCount >= 8 then
+        if claimedAllowancesCount >= 4 then
             TeleportService:Teleport(4588604953, player)
         end
     end
@@ -225,6 +208,7 @@ task.spawn(function() -- Allowance Timer Counter
 
         else
             allowanceReady = false
+            task.wait(timer-15)
         end
 
     end
@@ -341,4 +325,3 @@ end
 RunService:Set3dRenderingEnabled(false)
 task.spawn(main)
 task.spawn(loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))())
-
