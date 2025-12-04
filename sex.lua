@@ -315,7 +315,7 @@ local function main()
                     count = 1
                 end
 
-                postStats()
+                --postStats()
                 fpscap = 5
             end
         end
