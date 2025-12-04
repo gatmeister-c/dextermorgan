@@ -101,6 +101,10 @@ local fpscap = 5
 local atms = {}
 local atmsFolder = workspace:WaitForChild("Map"):WaitForChild("ATMz")
 
+for i, v in atmsFolder:GetChildren() do
+    table.insert(atms, v)
+end
+
 local function getNearestAtm()
     local nearestAtm = nil
     local nearestDistance = math.huge
@@ -329,6 +333,6 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
-RunService:Set3dRenderingEnabled(true)
+RunService:Set3dRenderingEnabled(false)
 task.spawn(main)
 task.spawn(initAntiAFK)
