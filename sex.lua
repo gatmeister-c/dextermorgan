@@ -145,22 +145,25 @@ end
 
 local function interactWithATM()
     local atm = getNearestAtm()
-    if not atm then return end
+    if not atm then print("no atm") return end
 
     local atmMainPart = atm.MainPart
-    if not atmMainPart then return end
+    if not atmMainPart then print("no atm mainpart") return end
 
     local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-    if not hrp then return end
+    if not hrp then print("no hrp") return end
 
     hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
+    print("teleported")
 
     local prompt = atmMainPart.posA:FindFirstChild("ProximityPrompt")
     if prompt then
         fireproximityprompt(prompt)
+        print("fired prompt")
     end
 
     hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
+    print("teleported")
 end
 
 -- RESPAWN --
@@ -326,6 +329,6 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
-RunService:Set3dRenderingEnabled(false)
+RunService:Set3dRenderingEnabled(true)
 task.spawn(main)
 task.spawn(initAntiAFK)
