@@ -299,10 +299,9 @@ local function main()
     local atm = nil
     local count = 0
     local loopCount = 0
-
-    toMainMenu()
     
     while task.wait(1) do
+        toMainMenu()
         if allowanceReady and not looping then
             fpscap = 60
             local newAtm = nil
