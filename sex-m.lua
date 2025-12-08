@@ -194,9 +194,9 @@ player.CharacterAdded:Connect(function(character)
     hrp = char:WaitForChild("HumanoidRootPart")
 end)
 
-task.spawn(function() -- Rejoin Main Menu every 1 hours (4 atm claims) to reset RAM usage
+task.spawn(function() -- Rejoin Main Menu every 30 minutes (2 atm claims) to reset RAM usage
     while task.wait(30) do
-        if claimedAllowancesCount >= 4 then
+        if claimedAllowancesCount >= 2 then
             TeleportService:Teleport(4588604953, player)
         end
     end
