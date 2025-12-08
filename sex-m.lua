@@ -139,7 +139,7 @@ local returnButton = playerGui:
                         WaitForChild("CoreGUI"):
                         WaitForChild("ReturnFrame"):
                         WaitForChild("ReturnButton"):
-                        WaitForChild("TextButton"):
+                        WaitForChild("TextButton")
 
 local function toMainMenu()
     for i, connection in getconnections(returnButton.MouseButton1Down) do
