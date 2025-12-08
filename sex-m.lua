@@ -135,18 +135,6 @@ local function claimAllowance()
     end
 end
 
-local returnButton = playerGui:
-                        WaitForChild("CoreGUI"):
-                        WaitForChild("ReturnFrame"):
-                        WaitForChild("ReturnButton"):
-                        WaitForChild("TextButton")
-
-local function toMainMenu()
-    for i, connection in getconnections(returnButton.MouseButton1Down) do
-        connection:Fire()
-    end
-end
-
 local function focusCameraOnATM(atmMainPart)
 	local lookFrom = atmMainPart.Position + Vector3.new(0, 3, 5)
 	local lookTo = atmMainPart.Position
@@ -299,7 +287,7 @@ local function main()
     local atm = nil
     local count = 0
     local loopCount = 0
-    
+
     while task.wait(1) do
         if allowanceReady and not looping then
             fpscap = 60
