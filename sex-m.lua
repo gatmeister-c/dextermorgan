@@ -196,8 +196,7 @@ end)
 
 task.spawn(function() -- Rejoin Main Menu every 30 minutes (2 atm claims) to reset RAM usage
     while task.wait(1) do
-		print(claimedAllowancesCount)
-        if claimedAllowancesCount >= 1 then
+        if claimedAllowancesCount >= 2 then
             TeleportService:Teleport(4588604953, player)
         end
     end
