@@ -271,8 +271,6 @@ local function main()
                 else   
                     count = 1
                 end
-
-                --postStats()
                 fpscap = 5
             end
         end
@@ -283,6 +281,6 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
---RunService:Set3dRenderingEnabled(false)
+RunService:Set3dRenderingEnabled(false)
 task.spawn(main)
 task.spawn(initAntiAFK)
