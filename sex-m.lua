@@ -281,6 +281,6 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
-RunService:Set3dRenderingEnabled(false)
+--RunService:Set3dRenderingEnabled(false) little piece of shit crashes the game when leaving
 task.spawn(main)
 task.spawn(initAntiAFK)
