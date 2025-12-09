@@ -236,7 +236,6 @@ local function main()
     local count = 0
     local loopCount = 0
     while task.wait(1) do
-        TeleportService:Teleport(4588604953, player)
         if allowanceReady and not looping then
             fpscap = 60
             local newAtm = nil
