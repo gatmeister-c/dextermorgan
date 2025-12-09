@@ -27,7 +27,7 @@ task.spawn(function()
             running = false
             if not menuLoaded then
                 menuLoaded = true
-                while task.wait(5) do
+                while task.wait(1) do
                     ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "M-Casual", nil, 1) 
                 end
             end
@@ -49,6 +49,7 @@ task.spawn(function()
             end
             print("Clicked Play")
             task.wait(5)
+			return
         end
     end
 end)
