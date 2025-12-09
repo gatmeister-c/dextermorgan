@@ -244,40 +244,6 @@ Players.PlayerAdded:Connect(function(player) -- Blacklist
     end
 end)
 
--- HTTP Requests
-local function postStats()
-    local updates = {
-        {
-            name = player.Name,
-            cash = cashUI.Text,
-            bank = bankUI.Text,
-            level = levelUI.Text,
-            xp = xpUI.Text,
-            status = "online",
-            lastClaimed = os.time()
-        }
-    }
-
-    local headers = {
-        ["Content-Type"] = "application/json",
-    }
-
-    local success, result = pcall(function()
-        return request({
-            Url = "https://dash.crimillion.com/api/accounts",
-            Method = "PATCH",
-            Headers = headers,
-            Body = HttpService:JSONEncode(updates)
-        })
-    end)
-
-    if success and result.Success then
-        print("Patch success:", result.Body)
-    else
-        warn("Patch failed:", result and result.Body or "Unknown error")
-    end
-end
-
 -- MAIN --
 local function main()
     if running then return end
