@@ -77,8 +77,6 @@ local success, response = pcall(function()
     end
 end)
 
-local fpscap = 5
-
 -- ATMS --
 local atms = {}
 local atmsFolder = workspace:WaitForChild("Map"):WaitForChild("ATMz")
@@ -214,12 +212,6 @@ task.spawn(function() -- Because for some reason the loopCount >= 40 check doesn
     end
 end)
 
-task.spawn(function() -- setfpscap() gets overridden sometimes
-	while task.wait(1) do
-        setfpscap(fpscap)
-    end
-end)
-
 Players.PlayerAdded:Connect(function(player) -- Blacklist
     if table.find(pedos, player.UserId) then
         plr:Kick("A blocked user, ".. player .. ", has joined. You have been disconnected.")
@@ -237,7 +229,6 @@ local function main()
     local loopCount = 0
     while task.wait(1) do
         if allowanceReady and not looping then
-            fpscap = 60
             local newAtm = nil
             looping = true
 
@@ -268,7 +259,6 @@ local function main()
                 else   
                     count = 1
                 end
-                fpscap = 5
             end
         end
     end
