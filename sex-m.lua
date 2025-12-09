@@ -49,7 +49,6 @@ task.spawn(function()
             end
             print("Clicked Play")
             task.wait(5)
-			return
         end
     end
 end)
@@ -233,7 +232,7 @@ end)
 -- MAIN --
 local function main()
     if running then return end
-
+	TeleportService:Teleport(4588604953, player)
     running = true
     local looping = false
     local atm = nil
@@ -286,4 +285,4 @@ end
 
 --RunService:Set3dRenderingEnabled(false)
 task.spawn(main)
---task.spawn(initAntiAFK)
+task.spawn(initAntiAFK)
