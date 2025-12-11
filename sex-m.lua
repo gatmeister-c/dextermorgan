@@ -5,6 +5,8 @@ print("skidded by jape rews")
 
 local pedos = {64489098,295331237,244844600,418086275,3294804378,142989311,281593651,3717066084,455275714,46567801,25689921,1229486091,54087314,63238912,446849296,141193516,81275825,96783330,67180844,412741116,193945439,93676120,140837601,63315426,142821118,175931803,194512073,87189764,93281166,208929505,418199326,957835150,47352513,632886139,1517131734,1810535041,195538733,156152502,122209625,102045519,111250044,29706395,730176906,1424338327,9212846,48058122,955294,5046659439,5046661126,5046662686,959606619,366613818,1024216621,278097946,50801509,40397833,241063740,646366887,1434829778,25048901,155413858,151691292,10497435,513615792,55893752,55476024,136584758,16983447,3111449,271400893,94693025,5005262660,141211828,114332275,42066711,69262878,92504899,50585425,31365111,49405424,166406495,2457253857,29761878,513242595,335465171}
 local running = false
+local startTime = os.time()
+local duration = 32 * 60 -- Minimum time before leaving server
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -85,6 +87,19 @@ for i, v in atmsFolder:GetChildren() do
     table.insert(atms, v)
 end
 
+local function isNear(part1, part2, maxDist)
+    local success, result = pcall(function()
+        return (part1.Position - part2.Position).Magnitude <= maxDist
+    end)
+
+    if success then
+        return result
+    else
+        warn("isNear error:", result)
+        return false
+    end
+end
+
 local function getNearestAtm()
     local nearestAtm = nil
     local nearestDistance = math.huge
@@ -129,13 +144,27 @@ end
 
 local function interactWithATM()
     local atm = getNearestAtm()
-    if not atm then print("no atm") return end
+    if not atm then 
+        print("no atm")
+        return 
+    end
 
     local atmMainPart = atm.MainPart
-    if not atmMainPart then print("no atm mainpart") return end
+    if not atmMainPart then
+        print("no atm mainpart") 
+        return 
+    end
 
     local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-    if not hrp then print("no hrp") return end
+    if not hrp then 
+        print("no hrp") 
+        return 
+    end
+
+    if isNear(hrp, atmMainPart, 5) then 
+        print("already at atm") 
+        return 
+    end
 
     hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
     print("teleported")
@@ -177,7 +206,10 @@ end)
 task.spawn(function() -- Rejoin Main Menu every 30 minutes (2 atm claims) to reset RAM usage
     while task.wait(1) do
         if claimedAllowancesCount >= 2 then
-            TeleportService:Teleport(4588604953, player)
+            local elapsed = os.time() - startTime
+            if elapsed >= duration then
+                TeleportService:Teleport(4588604953, player)
+            end
         end
     end
 end)
@@ -191,13 +223,12 @@ task.spawn(function() -- Allowance Timer Counter
 
         elseif timer <= 15 then
             humanoid.Health = 0
-            task.wait(timer)
+            task.wait(timer + 2)
 
         else
             allowanceReady = false
             task.wait(timer-15)
         end
-
     end
 end)
 
