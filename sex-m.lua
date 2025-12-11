@@ -162,21 +162,15 @@ local function interactWithATM()
     end
 
     if isNear(hrp, atmMainPart, 5) then 
-        print("already at atm") 
-        return 
+        local prompt = atmMainPart.posA:FindFirstChild("ProximityPrompt")
+        if prompt then
+            fireproximityprompt(prompt)
+            print("fired prompt")
+        end
+    else
+        hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
+        print("teleported")
     end
-
-    hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
-    print("teleported")
-
-    local prompt = atmMainPart.posA:FindFirstChild("ProximityPrompt")
-    if prompt then
-        fireproximityprompt(prompt)
-        print("fired prompt")
-    end
-
-    hrp.CFrame = atmMainPart.CFrame * CFrame.new(0, 0, -3)
-    print("teleported")
 end
 
 -- RESPAWN --
