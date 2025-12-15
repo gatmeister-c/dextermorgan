@@ -188,6 +188,10 @@ task.spawn(function()
     end
 end)
 
+local function resetChar()
+    humanoid.Health = 0
+end
+
 -- MISC --
 player.CharacterAdded:Connect(function(character)
     char = character
@@ -270,6 +274,8 @@ local function main()
             else
                 count += 1
                 claimedAllowancesCount += 1
+                task.wait(1)
+                resetChar()
 
                 if newAtm == atm then
                     if count >= 2 then
@@ -288,6 +294,5 @@ local function initAntiAFK()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/main/balls.lua"))()
 end
 
---RunService:Set3dRenderingEnabled(false) little piece of shit crashes the game when leaving
 task.spawn(main)
 task.spawn(initAntiAFK)
