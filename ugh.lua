@@ -3,26 +3,32 @@ local players = game:GetService("Players")
 local player = players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
 local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
 local playerGui = player:WaitForChild("PlayerGui")
+local notificationFrame = playerGui:WaitForChild("CoreGUI"):WaitForChild("NotificationFrame")
+local pauseTasks = false
 
-local targetPlayer = "USERNAME TO TELEPORT TO"
-local teleportAllowed = true
+local targetPlayer = "CHILLMAST3R2009_YT"
 
-playerGui.ChildAdded:Connect(function(child)
-    if child.Name == "Anti-Exploit" then
-        teleportAllowed = true
-        task.wait(3)
-        teleportAllowed = false
-        task.wait(30)
-        teleportAllowed = true
-    end
-end)
-
-local function dropCash()
+local function deathRespawn()
     local args = {
-        500
+        "KMG4R904"
     }
-    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DCZSH"):InvokeServer(unpack(args))
+    local result = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeathRespawn"):InvokeServer(unpack(args))
+    return result
+end
+
+local function isNear(part1, part2, maxDist)
+    local success, result = pcall(function()
+        return (part1.Position - part2.Position).Magnitude <= maxDist
+    end)
+
+    if success then
+        return result
+    else
+        warn("isNear error:", result)
+        return false
+    end
 end
 
 local function getTargetHumanoidRootPart()
@@ -49,18 +55,12 @@ end
 
 local function resetChar()
     humanoid.Health = 0
-local function teleportTo(part, target, offset)
-    while true do
-        if offset then
-            part.CFrame = target.CFrame + Vector3.new(2, 0, 2)
-        else
-            part.CFrame = target.CFrame
-        end
+end
 
-        task.wait(3)
-
-        if isNear(part, target, 5) then
-            return
+local function fireProximityPrompts()
+    for _, descendant in workspace:GetDescendants() do
+        if descendant:IsA("ProximityPrompt") then
+            fireproximityprompt(descendant)
         end
     end
 end
@@ -71,39 +71,61 @@ player.CharacterAdded:Connect(function(character)
     hrp = char:WaitForChild("HumanoidRootPart")
 end)
 
-local function fireProximityPrompts()
-    for _, descendant in workspace:GetDescendants() do
-        if descendant:IsA("ProximityPrompt") then
-            fireproximityprompt(descendant)
+notificationFrame.ChildAdded:Connect(function(child)
+    if child:FindFirstChild("Frame") then
+        local frame = child.Frame
+        if frame:FindFirstChild("NotificationTitle") then
+            local title = frame.NotificationTitle
+            if title.Text == "Anti Exploit" then
+                pauseTasks = true
+                task.wait(20)
+                pauseTasks = false
+            end
         end
     end
-end
-
-local function teleportOutsideMap()
-    target = Vector3.new()
-    teleportTo(hrp, target, 5)
-end
+end)
 
 local function main()
     if player.Name == targetPlayer then
-        teleportOutsideMap()
+        -- MAIN ACCOUNT
+        local ws = WebSocket.connect("ws://127.0.0.1:8080/")
 
-        while task.wait(0.1) do
+        while task.wait() do
             fireProximityPrompts()
+
+            for _, plr in players:GetChildren() do
+                if plr == player then continue end
+                local plrChar = plr.Character
+                if plrChar then
+                    local plrHumanoid = plrChar:WaitForChild("Humanoid")
+                    local plrHrp = plrChar:WaitForChild("HumanoidRootPart")
+                    if isNear(plrHrp, hrp, 5) and plrHumanoid.Health >= 100 then
+                        ws:Send(plr.Name)
+                    end
+                end
+            end
+        end
+
+    else
+        -- ALT ACCOUNTS
+        local ws = WebSocket.connect("ws://127.0.0.1:8080/")
+
+        ws.OnMessage:Connect(function(message)
+            if message == player.Name then
+                resetChar()
+            end
+        end)
+
+        while task.wait(1) do
+            if not pauseTasks then
+                hrp.CFrame = getTargetHumanoidRootPart().CFrame + Vector3.new(2, 1, 2)
+                deathRespawn()
+                task.wait(5)
+            end
         end
         
-    else
-        while true do
-            if teleportAllowed then
-                local targetHrp = getTargetHumanoidRootPart()
-                teleportTo(hrp, targetHrp, true)
-                resetChar()
-
-                teleportAllowed = false
-                task.wait(10)
-                teleportAllowed = true
-            end
-            task.wait(1)
-        end
     end
+
 end
+
+main()
