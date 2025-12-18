@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/master/ugh.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gatmeister-c/dextermorgan/master/sex-m.lua"))()
