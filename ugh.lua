@@ -19,16 +19,7 @@ local function deathRespawn()
 end
 
 local function isNear(part1, part2, maxDist)
-    local success, result = pcall(function()
-        return (part1.Position - part2.Position).Magnitude <= maxDist
-    end)
-
-    if success then
-        return result
-    else
-        warn("isNear error:", result)
-        return false
-    end
+    return (part1.Position - part2.Position).Magnitude <= maxDist
 end
 
 local function getTargetHumanoidRootPart()
@@ -65,6 +56,27 @@ local function fireProximityPrompts()
     end
 end
 
+local function teleportOutsideMap()
+    local x = -4712
+    local y = -150
+    local z = -904
+    local part = Instance.new("Part")
+    part.Anchored = true
+    part.CanCollide = false
+    part.Transparency = 0
+    part.Position = Vector3.new(x, y, z)
+    part.Parent = game:GetService("Workspace")
+
+    while not pauseTasks do
+        hrp.CFrame = part.CFrame
+        task.wait(3)
+        
+        if isNear(hrp, part, 2) then
+            return
+        end
+    end
+end
+
 player.CharacterAdded:Connect(function(character)
     char = character
     humanoid = char:WaitForChild("Humanoid")
@@ -88,6 +100,7 @@ end)
 local function main()
     if player.Name == targetPlayer then
         -- MAIN ACCOUNT
+        teleportOutsideMap()
         local ws = WebSocket.connect("ws://127.0.0.1:8080/")
 
         while task.wait() do
