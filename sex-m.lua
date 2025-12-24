@@ -77,6 +77,66 @@ local success, response = pcall(function()
     end
 end)
 
+-- WEBHOOK --
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1453526827929829397/_8lil-pL0FlTwXxHtRmMJbQnzYaRPNAyXe1BuSWpVxnTZDxNeNYquWMFj1G5c8a-9XHi"
+
+local HttpService = game:GetService("HttpService")
+
+local WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL"
+
+local function sendWebhook(data)
+    local payload = {
+        embeds = {{
+            title = data.title or "Notification",
+            description = data.description or "",
+            color = data.color or 5793266, -- blurple
+            fields = data.fields,
+            footer = {
+                text = data.footer or "Roblox Webhook"
+            },
+            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+        }}
+    }
+
+    local success, response = pcall(request, {
+        Url = WEBHOOK_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(payload)
+    })
+
+    if not success then
+        warn("Webhook request failed:", response)
+        return
+    end
+
+    if not response.Success then
+        warn("Webhook HTTP error:", response.StatusCode, response.StatusMessage)
+    end
+end
+
+if cashPath.Value >= 500000 then
+    sendWebhook({
+        title = "💰 Cash Milestone",
+        description = "Cash exceeded **500,000**",
+        color = 3066993,
+        fields = {
+            {
+                name = "Account",
+                value = player.Name,
+                inline = true
+            },
+            {
+                name = "Amount",
+                value = tostring(cashValue.Value),
+                inline = true
+            }
+        }
+    })
+end
+
 -- ATMS --
 local atms = {}
 local atmsFolder = workspace:WaitForChild("Map"):WaitForChild("ATMz")
