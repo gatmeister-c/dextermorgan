@@ -79,17 +79,15 @@ end)
 
 -- WEBHOOK --
 local WEBHOOK_URL = "https://discord.com/api/webhooks/1453526827929829397/_8lil-pL0FlTwXxHtRmMJbQnzYaRPNAyXe1BuSWpVxnTZDxNeNYquWMFj1G5c8a-9XHi"
-
-local HttpService = game:GetService("HttpService")
-
-local WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL"
+local httpRequest = request or http_request or (http and http.request)
+assert(httpRequest, "No supported HTTP request function found")
 
 local function sendWebhook(data)
     local payload = {
         embeds = {{
             title = data.title or "Notification",
             description = data.description or "",
-            color = data.color or 5793266, -- blurple
+            color = data.color or 5793266,
             fields = data.fields,
             footer = {
                 text = data.footer or "Roblox Webhook"
@@ -98,7 +96,7 @@ local function sendWebhook(data)
         }}
     }
 
-    local success, response = pcall(request, {
+    local success, response = pcall(httpRequest, {
         Url = WEBHOOK_URL,
         Method = "POST",
         Headers = {
