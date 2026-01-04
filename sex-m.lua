@@ -1,7 +1,6 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-print("skidded by jape rews")
 
 local pedos = {64489098,295331237,244844600,418086275,3294804378,142989311,281593651,3717066084,455275714,46567801,25689921,1229486091,54087314,63238912,446849296,141193516,81275825,96783330,67180844,412741116,193945439,93676120,140837601,63315426,142821118,175931803,194512073,87189764,93281166,208929505,418199326,957835150,47352513,632886139,1517131734,1810535041,195538733,156152502,122209625,102045519,111250044,29706395,730176906,1424338327,9212846,48058122,955294,5046659439,5046661126,5046662686,959606619,366613818,1024216621,278097946,50801509,40397833,241063740,646366887,1434829778,25048901,155413858,151691292,10497435,513615792,55893752,55476024,136584758,16983447,3111449,271400893,94693025,5005262660,141211828,114332275,42066711,69262878,92504899,50585425,31365111,49405424,166406495,2457253857,29761878,513242595,335465171}
 local running = false
@@ -28,9 +27,8 @@ task.spawn(function()
                     ReplicatedStorage:WaitForChild("Events").Play:InvokeServer("play", "M-Casual", nil, 1) 
                 end
             end
-        end
-
-        if tostring(game.PlaceId) == "15169316384" then
+        
+        else
             menuLoaded = false
             task.wait(10)
             local button = Players.LocalPlayer:
@@ -50,20 +48,19 @@ task.spawn(function()
     end
 end)
 
-local player = Players.LocalPlayer
-local char = player.Character or player.CharacterAdded:Wait()
-local humanoid = char:WaitForChild("Humanoid")
-local hrp = char:WaitForChild("HumanoidRootPart")
-local camera = workspace.Camera
-local playerGui = player:WaitForChild("PlayerGui")
+local player =                  Players.LocalPlayer
+local char =                    player.Character or player.CharacterAdded:Wait()
+local humanoid =                char:WaitForChild("Humanoid")
+local hrp =                     char:WaitForChild("HumanoidRootPart")
+local camera =                  workspace.Camera
+local playerGui =               player:WaitForChild("PlayerGui")
 
-local allowanceTimerPath = ReplicatedStorage:
-                        WaitForChild("PlayerbaseData2"):
-                        WaitForChild(player.Name):
-                        WaitForChild("NextAllowance")
-local allowanceTimer = allowanceTimerPath.Value
-local allowanceReady = false
-local claimedAllowancesCount = 0
+local allowanceTimerPath =      ReplicatedStorage:WaitForChild("PlayerbaseData2"):WaitForChild(player.Name):WaitForChild("NextAllowance")
+local allowanceTimer =          allowanceTimerPath.Value
+local allowanceReady =          false
+local claimedAllowancesCount =  0
+local cashPath =                ReplicatedStorage:WaitForChild("PlayerbaseData2"):WaitForChild(player.Name):WaitForChild("Cash")
+local bankPath =                playerGui:WaitForChild("CoreGUI"):WaitForChild("StatsFrame"):WaitForChild("Frame2"):WaitForChild("Frame"):WaitForChild("Container"):WaitForChild("Bank"):WaitForChild("Amt")
 
 local success, response = pcall(function()
     local dailyRewardsClaim = playerGui:
@@ -115,24 +112,30 @@ local function sendWebhook(data)
     end
 end
 
-if cashPath.Value >= 500000 then
-    sendWebhook({
-        title = "💰 Cash Milestone",
-        description = "Cash exceeded **500,000**",
-        color = 3066993,
-        fields = {
-            {
-                name = "Account",
-                value = player.Name,
-                inline = true
-            },
-            {
-                name = "Amount",
-                value = tostring(cashValue.Value),
-                inline = true
+if bankPath.Text then
+    local dolladolla = string.gsub(bankPath.Text, ",", "")
+    local dih = string.gsub(dolladolla, "%$", "")
+    print(dih)
+
+    if tonumber(dih) >= 500000 then
+        sendWebhook({
+            title = "💰 Cash Milestone",
+            description = "Cash exceeded **500,000**",
+            color = 3066993,
+            fields = {
+                {
+                    name = "Account",
+                    value = player.Name,
+                    inline = true
+                },
+                {
+                    name = "Amount",
+                    value = tostring(bankPath.Text),
+                    inline = true
+                }
             }
-        }
-    })
+        })
+    end
 end
 
 -- ATMS --
